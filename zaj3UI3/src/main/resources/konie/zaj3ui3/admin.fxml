@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="konie.zaj3ui3.AdminController"
+            prefHeight="700.0" prefWidth="1200.0">
+
+    <!-- Górny panel z tytułem i wylogowaniem -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-background-color: #2c3e50; -fx-padding: 10;">
+            <Label text="Panel Administratora - System Zarządzania Stadniną"
+                   style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="Wyloguj" onAction="#handleLogout"
+                    style="-fx-background-color: #e74c3c; -fx-text-fill: white;"/>
+        </HBox>
+    </top>
+
+    <!-- Główna zawartość -->
+    <center>
+        <SplitPane dividerPositions="0.4" orientation="HORIZONTAL">
+
+            <!-- LEWA STRONA - STADNINY -->
+            <VBox spacing="10" style="-fx-padding: 10;">
+                <!-- Nagłówek sekcji stadnin -->
+                <Label text="Stadniny" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+
+                <!-- Tabela stadnin -->
+                <TableView fx:id="stablesTable" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="stableNameColumn" text="Nazwa" prefWidth="150"/>
+                        <TableColumn fx:id="stableFillColumn" text="Obciążenie %" prefWidth="100"/>
+                        <TableColumn fx:id="stableCountColumn" text="Liczba koni" prefWidth="100"/>
+                    </columns>
+                    <placeholder>
+                        <Label text="Brak stadnin"/>
+                    </placeholder>
+                </TableView>
+
+                <!-- Przyciski zarządzania stadninami -->
+                <HBox spacing="10" alignment="CENTER">
+                    <Button fx:id="addStableBtn" text="Dodaj stadninę" onAction="#handleAddStable"
+                            style="-fx-background-color: #27ae60; -fx-text-fill: white;"/>
+                    <Button fx:id="removeStableBtn" text="Usuń stadninę" onAction="#handleRemoveStable"
+                            style="-fx-background-color: #e74c3c; -fx-text-fill: white;"/>
+                    <Button fx:id="sortStablesBtn" text="Sortuj po obciążeniu" onAction="#handleSortStables"
+                            style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
+                </HBox>
+            </VBox>
+
+            <!-- PRAWA STRONA - KONIE -->
+            <VBox spacing="10" style="-fx-padding: 10;">
+                <!-- Nagłówek sekcji koni -->
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label text="Konie w wybranej stadninie"
+                           style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label fx:id="selectedStableLabel" text="(brak wyboru)"
+                           style="-fx-font-style: italic;"/>
+                </HBox>
+
+                <!-- Panel filtrowania -->
+                <GridPane hgap="10" vgap="5">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="15"/>
+                        <ColumnConstraints percentWidth="35"/>
+                        <ColumnConstraints percentWidth="15"/>
+                        <ColumnConstraints percentWidth="35"/>
+                    </columnConstraints>
+
+                    <Label text="Filtr nazwy:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                    <TextField fx:id="filterTextField" promptText="Wpisz fragment nazwy..."
+                               GridPane.columnIndex="1" GridPane.rowIndex="0"
+                               onAction="#handleFilterByName"/>
+
+                    <Label text="Filtr statusu:" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+                    <ComboBox fx:id="statusComboBox" promptText="Wybierz status"
+                              GridPane.columnIndex="3" GridPane.rowIndex="0"
+                              onAction="#handleFilterByStatus" prefWidth="200"/>
+                </GridPane>
+
+                <!-- Tabela koni -->
+                <TableView fx:id="horsesTable" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="horseNameColumn" text="Nazwa" prefWidth="120"/>
+                        <TableColumn fx:id="horseBreedColumn" text="Rasa" prefWidth="120"/>
+                        <TableColumn fx:id="horseAgeColumn" text="Wiek" prefWidth="60"/>
+                        <TableColumn fx:id="horsePriceColumn" text="Cena" prefWidth="100"/>
+                        <TableColumn fx:id="horseStatusColumn" text="Status" prefWidth="100"/>
+                    </columns>
+                    <placeholder>
+                        <Label text="Wybierz stadninę, aby zobaczyć konie"/>
+                    </placeholder>
+                </TableView>
+
+                <!-- Przyciski zarządzania końmi -->
+                <HBox spacing="10" alignment="CENTER">
+                    <Button fx:id="addHorseBtn" text="Dodaj konia" onAction="#handleAddHorse"
+                            style="-fx-background-color: #27ae60; -fx-text-fill: white;" disable="true"/>
+                    <Button fx:id="removeHorseBtn" text="Usuń konia" onAction="#handleRemoveHorse"
+                            style="-fx-background-color: #e74c3c; -fx-text-fill: white;" disable="true"/>
+                    <Button fx:id="sortHorsesByPriceBtn" text="Sortuj po cenie" onAction="#handleSortHorsesByPrice"
+                            style="-fx-background-color: #3498db; -fx-text-fill: white;" disable="true"/>
+                    <Button fx:id="clearFiltersBtn" text="Wyczyść filtry" onAction="#handleClearFilters"
+                            style="-fx-background-color: #95a5a6; -fx-text-fill: white;" disable="true"/>
+                </HBox>
+            </VBox>
+
+        </SplitPane>
+    </center>
+
+    <!-- Dolny panel ze statusem -->
+    <bottom>
+        <HBox style="-fx-background-color: #ecf0f1; -fx-padding: 5;">
+            <Label fx:id="statusLabel" text="Gotowy" style="-fx-font-style: italic;"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

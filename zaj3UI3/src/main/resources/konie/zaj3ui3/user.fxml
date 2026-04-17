@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="konie.zaj3ui3.UserController"
+            prefHeight="600.0" prefWidth="900.0">
+
+    <!-- Górny panel -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-background-color: #16a085; -fx-padding: 10;">
+            <Label text="Panel Klienta - Przeglądaj Konie"
+                   style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="Wyloguj" onAction="#handleLogout"
+                    style="-fx-background-color: #c0392b; -fx-text-fill: white;"/>
+        </HBox>
+    </top>
+
+    <!-- Główna zawartość -->
+    <center>
+        <VBox spacing="15" style="-fx-padding: 15;">
+
+            <!-- Sekcja wyboru stadniny -->
+            <VBox spacing="5">
+                <Label text="Wybierz stadninę:" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <ComboBox fx:id="stableComboBox" promptText="Wybierz stadninę..."
+                              prefWidth="300" onAction="#handleStableSelection"/>
+                    <Label fx:id="stableInfoLabel" text="" style="-fx-font-style: italic;"/>
+                </HBox>
+            </VBox>
+
+            <!-- Panel wyszukiwania i filtrowania -->
+            <VBox spacing="10" style="-fx-background-color: #ecf0f1; -fx-padding: 10; -fx-background-radius: 5;">
+                <Label text="Wyszukiwanie i filtrowanie:" style="-fx-font-weight: bold;"/>
+
+                <GridPane hgap="15" vgap="10">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="15"/>
+                        <ColumnConstraints percentWidth="35"/>
+                        <ColumnConstraints percentWidth="15"/>
+                        <ColumnConstraints percentWidth="35"/>
+                    </columnConstraints>
+
+                    <Label text="Nazwa/rasa:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                    <TextField fx:id="searchField" promptText="Wpisz fragment nazwy lub rasy..."
+                               GridPane.columnIndex="1" GridPane.rowIndex="0"
+                               onAction="#handleSearch"/>
+
+                    <Label text="Status:" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+                    <ComboBox fx:id="statusFilterCombo" GridPane.columnIndex="3" GridPane.rowIndex="0"
+                              onAction="#handleStatusFilter" prefWidth="200"/>
+
+                    <Label text="Wiek od:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                    <TextField fx:id="minAgeField" promptText="Min"
+                               GridPane.columnIndex="1" GridPane.rowIndex="1" prefWidth="100"/>
+
+                    <Label text="Wiek do:" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                    <TextField fx:id="maxAgeField" promptText="Max"
+                               GridPane.columnIndex="3" GridPane.rowIndex="1" prefWidth="100"/>
+                </GridPane>
+
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Button text="Szukaj" onAction="#handleSearch"
+                            style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
+                    <Button text="Wyczyść filtry" onAction="#handleClearFilters"
+                            style="-fx-background-color: #95a5a6; -fx-text-fill: white;"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label fx:id="resultsCountLabel" text="Znaleziono: 0 koni"/>
+                </HBox>
+            </VBox>
+
+            <!-- Tabela z końmi -->
+            <TableView fx:id="horsesTable" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="nameColumn" text="Nazwa" prefWidth="150"/>
+                    <TableColumn fx:id="breedColumn" text="Rasa" prefWidth="150"/>
+                    <TableColumn fx:id="ageColumn" text="Wiek" prefWidth="80"/>
+                    <TableColumn fx:id="priceColumn" text="Cena" prefWidth="120"/>
+                    <TableColumn fx:id="statusColumn" text="Status" prefWidth="100"/>
+                </columns>
+                <placeholder>
+                    <Label text="Wybierz stadninę, aby zobaczyć dostępne konie"/>
+                </placeholder>
+            </TableView>
+
+            <!-- Panel szczegółów wybranego konia -->
+            <VBox spacing="5" style="-fx-background-color: #ecf0f1; -fx-padding: 10; -fx-background-radius: 5;">
+                <Label text="Szczegóły wybranego konia:" style="-fx-font-weight: bold;"/>
+                <TextArea fx:id="detailsArea" editable="false" prefHeight="100"
+                          promptText="Wybierz konia z tabeli, aby zobaczyć szczegóły"
+                          style="-fx-font-family: monospace;"/>
+            </VBox>
+
+        </VBox>
+    </center>
+
+    <!-- Dolny panel -->
+    <bottom>
+        <HBox style="-fx-background-color: #ecf0f1; -fx-padding: 5;">
+            <Label fx:id="statusLabel" text="Gotowy" style="-fx-font-style: italic;"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

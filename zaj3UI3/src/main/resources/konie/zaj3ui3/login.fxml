@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="konie.zaj3ui3.HelloController">
+    <children>
+        <Button layoutX="256.0" layoutY="282.0" mnemonicParsing="false" onAction="#switchToUser" text="Log in as user" AnchorPane.topAnchor="282.0" />
+      <Button layoutX="249.0" layoutY="188.0" mnemonicParsing="false" onAction="#switchToAdmin" text="Log in as Admin" />
+      <Label layoutX="260.0" layoutY="52.0" text="Horse Manager" />
+    </children>
+</AnchorPane>
